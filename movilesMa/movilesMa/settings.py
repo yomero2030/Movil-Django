@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
+    'rest_framework',
+    'producto',
+    'Login',
 ]
 
 MIDDLEWARE = [
@@ -75,10 +79,44 @@ WSGI_APPLICATION = 'movilesMa.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'movil',
+        'USER': 'postgres',
+        'PASSWORD': '171117',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+         
+    ]
+}
+
+
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
+'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+'PAGE_SIZE': 100,
+## en el server no jala vamos haber que shows si es cierto
+#'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
+
+CORS_ALLOW_METHODS = (
+'DELETE',
+'GET',
+'POST',
+'PUT',
+)
+
 
 
 # Password validation
@@ -103,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'UTC'
 
